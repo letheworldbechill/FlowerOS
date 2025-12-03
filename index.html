@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>LoopOS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-root">
+    <header class="app-header card-3d">
+      <div class="header-main">
+        <h1>LoopOS</h1>
+        <p class="subtitle">Dein kleines System für Loops, Klarheit & Belege.</p>
+      </div>
+      <div class="mode-chip" id="mode-chip">
+        <span id="mode-label">Modus: Operator</span>
+      </div>
+    </header>
+
+    <nav class="tab-bar card-3d">
+      <button class="tab-button active" data-tab="loops">Loops</button>
+      <button class="tab-button" data-tab="belege">Belege</button>
+      <button class="tab-button" data-tab="modus">Modus</button>
+      <button class="tab-button" data-tab="ideen">Ideen</button>
+      <button class="tab-button" data-tab="focus">Fokus</button>
+    </nav>
+
+    <main class="app-main">
+      <!-- Loops -->
+      <section class="tab-panel active" id="tab-loops">
+        <div class="panel-header">
+          <h2>Loops</h2>
+          <p>Kleine Zyklen klar definieren, schließen und spüren.</p>
+        </div>
+
+        <form id="loop-form" class="card-3d form-card">
+          <h3>Neuen Loop anlegen</h3>
+          <label>
+            Titel
+            <input type="text" id="loop-title" placeholder="z.B. Mail an X, Unterlagen sortieren..." />
+          </label>
+          <label>
+            Abschluss-Kriterium
+            <input type="text" id="loop-criterion" placeholder="Wann gilt der Loop als abgeschlossen?" />
+          </label>
+          <button type="submit" class="primary-btn">Loop speichern</button>
+        </form>
+
+        <div class="list-header">
+          <h3>Offene Loops</h3>
+          <button class="ghost-btn" id="toggle-loops-view">Nur offene / alle</button>
+        </div>
+        <ul id="loop-list" class="item-list"></ul>
+      </section>
+
+      <!-- Belege -->
+      <section class="tab-panel" id="tab-belege">
+        <div class="panel-header">
+          <h2>Kompetenz-Belege</h2>
+          <p>Nur Tatsachen. Kein Gefühl. Was existiert, weil du es gemacht hast.</p>
+        </div>
+
+        <form id="entry-form" class="card-3d form-card">
+          <h3>Neuer Beleg</h3>
+          <label>
+            Datum
+            <input type="date" id="entry-date" />
+          </label>
+          <label>
+            Output
+            <input type="text" id="entry-output" placeholder="Was ist entstanden?" />
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" id="entry-fulfilled" />
+            <span>Zweck erfüllt?</span>
+          </label>
+          <button type="submit" class="primary-btn">Beleg hinzufügen</button>
+        </form>
+
+        <div class="list-header">
+          <h3>Deine Belege</h3>
+          <button class="ghost-btn" id="clear-entries">Alle Belege exportieren &amp; leeren</button>
+        </div>
+        <ul id="entry-list" class="item-list"></ul>
+      </section>
+
+      <!-- Fokus -->
+      <section class="tab-panel" id="tab-focus">
+        <div class="panel-header">
+          <h2>Fokusblock</h2>
+          <p>Konzentriert einen Loop schließen – mit sanfter Erinnerung am Ende.</p>
+        </div>
+
+        <div class="card-3d focus-card">
+          <h3>Fokus starten</h3>
+          <label>
+            Wähle einen Loop
+            <select id="focus-loop-select">
+              <option value="" disabled selected>-- Bitte wählen --</option>
+            </select>
+          </label>
+
+          <div class="focus-config">
+            <label>
+              Fokus-Dauer (Minuten)
+              <input type="number" id="focus-minutes" min="5" max="120" value="25" />
+            </label>
+            <div class="focus-display" id="focus-display">25:00</div>
+          </div>
+
+          <div class="focus-actions">
+            <button id="focus-start" class="primary-btn">Start</button>
+            <button id="focus-pause" class="ghost-btn">Pause</button>
+            <button id="focus-reset" class="ghost-btn">Reset</button>
+          </div>
+
+          <div class="focus-notify">
+            <button id="focus-notify-btn" class="chip-toggle">Benachrichtigen</button>
+            <span id="focus-notify-label">Benachrichtigungen: Aus</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modus -->
+      <section class="tab-panel" id="tab-modus">
+        <div class="panel-header">
+          <h2>Modus</h2>
+          <p>Nur Bewusstsein: In welchem Zustand arbeitest du gerade?</p>
+        </div>
+
+        <div class="card-3d mode-card">
+          <h3>Aktueller Modus</h3>
+          <p class="mode-description" id="mode-description">
+            Operator: Klar, strukturiert, Loops schließen, Systeme stabilisieren.
+          </p>
+          <div class="mode-toggle-row">
+            <button class="chip-toggle active" data-mode="operator">Operator</button>
+            <button class="chip-toggle" data-mode="overload">Überlast</button>
+          </div>
+          <p class="note">
+            Du bewertest dich nicht. Du benennst nur den Zustand, damit dein System weiß, wie es sich einordnen soll.
+          </p>
+        </div>
+
+        <div class="card-3d">
+          <h3>Kurze Selbst-Fragen</h3>
+          <ul class="checklist">
+            <li>Kann ich gerade einen kleinen Loop zu Ende bringen?</li>
+            <li>Ist das Problem logischer Natur – oder nur Last?</li>
+            <li>Welche eine Sache würde sofort Entlastung bringen?</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Ideen -->
+      <section class="tab-panel" id="tab-ideen">
+        <div class="panel-header">
+          <h2>Ideen-Parkdeck</h2>
+          <p>Ideen parken, statt dich zersplittern zu lassen.</p>
+        </div>
+
+        <form id="idea-form" class="card-3d form-card">
+          <h3>Neue Idee parken</h3>
+          <label>
+            Titel
+            <input type="text" id="idea-title" placeholder="z.B. neutrales Dienstleister-Internet..." />
+          </label>
+          <label>
+            Stichpunkte (optional)
+            <textarea id="idea-notes" rows="3" placeholder="3 kurze Bulletpoints, nicht mehr."></textarea>
+          </label>
+          <button type="submit" class="primary-btn">Idee sichern</button>
+        </form>
+
+        <div class="list-header">
+          <h3>Geparkte Ideen</h3>
+          <button class="ghost-btn" id="export-ideas">Ideen exportieren</button>
+        </div>
+        <ul id="idea-list" class="item-list"></ul>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>LoopOS · lokal, offline, nur für dich.</span>
+    </footer>
+  </div>
+
+  <!-- Shutdown Overlay / 3-Stufen-Protokoll Hinweis -->
+  <div id="shutdown-overlay" class="shutdown-overlay">
+    <div class="shutdown-backdrop"></div>
+    <div class="shutdown-card card-3d">
+      <h2>Systemblockade erkannt</h2>
+      <p class="shutdown-subtitle">
+        Du warst eine Weile still. Kein Fehler – nur ein Hinweis: Wahrscheinlich ist dein System im Schutzmodus.
+      </p>
+
+      <ol class="shutdown-steps">
+        <li><strong>Stufe 1 – Ein Satz:</strong> Benenne kurz, was dich gerade blockiert.</li>
+        <li><strong>Stufe 2 – Kleinste Bewegung:</strong> Wähle eine mikroskopische Handlung (z.B. Fenster öffnen, Loop anklicken, Gegenstand bewegen).</li>
+        <li><strong>Stufe 3 – Linie ziehen:</strong> Definiere den nächsten kleinsten Schritt danach.</li>
+      </ol>
+
+      <div class="shutdown-actions">
+        <button class="primary-btn" id="shutdown-close-btn">Okay, kleinste Bewegung starten</button>
+      </div>
+      <p class="shutdown-note">
+        Hinweis: Der Fokus-Timer schützt dich vor diesem Hinweis – dort gilt „Stillstand = Fokus“, nicht Shutdown.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Bindung für Shutdown-Overlay schließen
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("shutdown-close-btn");
+      const overlay = document.getElementById("shutdown-overlay");
+      if (btn && overlay) {
+        btn.addEventListener("click", () => {
+          overlay.classList.remove("visible");
+        });
+      }
+    });
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
